@@ -46,9 +46,9 @@ export default function DareList() {
 
   return (
     <section>
-      <button type="button" onClick={regenerate} disabled={loading}>
+      {/*<button type="button" onClick={regenerate} disabled={loading}>
         Regenerate
-      </button>
+      </button>*/}
       {status && <p role="status">{status}</p>}
       {dares.map((dare) => (
         <DareCard key={dare.id} dare={dare} />
