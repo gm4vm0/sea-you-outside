@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Nav() {
   return (
-    <nav className="border-t-2 h-[5vh]">
+    <nav className="sticky bottom-0 bg-white border-t-2 h-[5vh]">
       <ul className="flex justify-between">
         <li>
           <Link href="/">Home</Link>
