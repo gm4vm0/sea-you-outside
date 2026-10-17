@@ -6,7 +6,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <body className="min-h-full flex flex-col">
+    <body className="min-h-full flex flex-col justify-between">
       {children}
       <Nav />
     </body>
