@@ -19,6 +19,31 @@
   }
 }
 
+@keyframes swim {
+  from {
+    transform: translateX(-10vw);
+  }
+  to {
+    transform: translateX(110vw);
+  }
+}
+
+.fish {
+  position: absolute;
+  left: 0;
+  font-size: 2.5rem;
+  animation-name: swim;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Respect people who turn off motion in their device settings */
+/* @media (prefers-reduced-motion: reduce) {
+  .fish {
+    animation: none;
+  }
+} */
+
 body {
   background: var(--background);
   color: var(--foreground);
