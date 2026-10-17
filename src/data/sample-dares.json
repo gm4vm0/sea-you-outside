@@ -1,0 +1,152 @@
+[
+  {
+    "id": "s1",
+    "title": "Sky check",
+    "depth": "shallows",
+    "points": 10,
+    "instructions": "Step outside and take a photo of today's sky.",
+    "alternatives": [
+      {
+        "text": "Photograph the sky through a window.",
+        "tags": ["seated-ok", "step-free"]
+      }
+    ],
+    "tags": ["quick"],
+    "proof": "A photo showing the sky."
+  },
+  {
+    "id": "s2",
+    "title": "Something blue",
+    "depth": "shallows",
+    "points": 10,
+    "instructions": "Find something blue outdoors and photograph it.",
+    "alternatives": [
+      {
+        "text": "Find something blue you can see from a window or doorway.",
+        "tags": ["seated-ok", "step-free"]
+      }
+    ],
+    "tags": ["quick", "nature"],
+    "proof": "A photo of a blue object outdoors."
+  },
+  {
+    "id": "s3",
+    "title": "Lunch al fresco",
+    "depth": "shallows",
+    "points": 10,
+    "instructions": "Eat a meal or snack outside.",
+    "alternatives": [
+      {
+        "text": "Eat by an open window or on a balcony.",
+        "tags": ["seated-ok", "step-free"]
+      }
+    ],
+    "tags": ["quick"],
+    "proof": "A photo of your food outdoors."
+  },
+  {
+    "id": "s4",
+    "title": "Bird spotter",
+    "depth": "shallows",
+    "points": 10,
+    "instructions": "Spot three birds outside and photograph one of them.",
+    "alternatives": [
+      {
+        "text": "Spot birds from a window and photograph one.",
+        "tags": ["seated-ok", "step-free"]
+      }
+    ],
+    "tags": ["nature", "quiet"],
+    "proof": "A photo of a bird."
+  },
+  {
+    "id": "r1",
+    "title": "New park",
+    "depth": "reef",
+    "points": 25,
+    "instructions": "Walk or roll to a park you haven't visited this month.",
+    "alternatives": [
+      {
+        "text": "Visit any green space with a step-free path.",
+        "tags": ["step-free"]
+      }
+    ],
+    "tags": ["nature"],
+    "proof": "A photo of the park."
+  },
+  {
+    "id": "r2",
+    "title": "Litter pick",
+    "depth": "reef",
+    "points": 25,
+    "instructions": "Pick up five pieces of litter outside and put them in a bin.",
+    "alternatives": [
+      {
+        "text": "Tidy up litter on your street or building entrance.",
+        "tags": ["step-free"]
+      }
+    ],
+    "tags": ["cleanup"],
+    "proof": "A photo of the litter in a bag or bin."
+  },
+  {
+    "id": "r3",
+    "title": "Find water",
+    "depth": "reef",
+    "points": 25,
+    "instructions": "Photograph any water outdoors: a fountain, river, lake or the sea.",
+    "alternatives": [
+      {
+        "text": "Photograph a puddle, pond or water feature nearby.",
+        "tags": ["step-free"]
+      }
+    ],
+    "tags": ["water"],
+    "proof": "A photo of water outdoors."
+  },
+  {
+    "id": "t1",
+    "title": "Shoreline with a friend",
+    "depth": "twilight",
+    "points": 50,
+    "instructions": "Visit a shoreline, lake or river with a friend.",
+    "alternatives": [
+      {
+        "text": "Visit a park pond or fountain with a friend.",
+        "tags": ["step-free", "group"]
+      }
+    ],
+    "tags": ["water", "group"],
+    "proof": "A photo of the water."
+  },
+  {
+    "id": "t2",
+    "title": "20-minute cleanup",
+    "depth": "twilight",
+    "points": 50,
+    "instructions": "Spend 20 minutes cleaning up litter in a public place.",
+    "alternatives": [
+      {
+        "text": "Spend 20 minutes tidying a shared outdoor space near you.",
+        "tags": ["step-free"]
+      }
+    ],
+    "tags": ["cleanup"],
+    "proof": "A photo of the litter you collected."
+  },
+  {
+    "id": "a1",
+    "title": "Sunrise by the water",
+    "depth": "abyss",
+    "points": 100,
+    "instructions": "Watch the sunrise near water.",
+    "alternatives": [
+      {
+        "text": "Watch the sunrise from a window or balcony.",
+        "tags": ["seated-ok", "step-free"]
+      }
+    ],
+    "tags": ["water", "quiet"],
+    "proof": "A photo of the sunrise."
+  }
+]
