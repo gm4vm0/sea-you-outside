@@ -1,5 +1,6 @@
 import { checkProof } from "@/lib/dares/verify";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { createClient } from "@/lib/supabase/server";
 
 const MAX_BYTES = 4 * 1024 * 1024;
 
