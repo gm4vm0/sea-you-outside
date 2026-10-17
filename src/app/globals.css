@@ -21,10 +21,10 @@
 
 @keyframes swim {
   from {
-    transform: translateX(-10vw);
+    transform: translateX(110vw);
   }
   to {
-    transform: translateX(110vw);
+    transform: translateX(-10vw);
   }
 }
 
