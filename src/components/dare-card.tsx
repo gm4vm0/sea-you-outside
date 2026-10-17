@@ -1,3 +1,4 @@
+import ProofUpload from "./proof-upload";
 import type { Dare } from "@/lib/types";
 
 export default function DareCard({ dare }: { dare: Dare }) {
@@ -9,7 +10,7 @@ export default function DareCard({ dare }: { dare: Dare }) {
         </strong>
       </p>
       <h2>{dare.title}</h2>
-      {/* <p>{dare.instructions}</p>
+      <p>{dare.instructions}</p>
       {dare.alternatives.length > 0 && (
         <>
           <p>
@@ -21,10 +22,8 @@ export default function DareCard({ dare }: { dare: Dare }) {
             ))}
           </ul>
         </>
-      )} */}
-      <button type="button" disabled>
-        Submit photo (coming soon)
-      </button>
+      )}
+      <ProofUpload dareId={dare.id} />
     </article>
   );
 }
