@@ -6,9 +6,9 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <body className="min-h-full flex flex-col justify-between">
+    <div className="flex flex-1 flex-col justify-between">
       {children}
       <Nav />
-    </body>
+    </div>
   );
 }
