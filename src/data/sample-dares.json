@@ -8,7 +8,7 @@
     "alternatives": [
       {
         "text": "Photograph the sky through a window.",
-        "tags": ["seated-ok", "step-free"]
+        "tags": ["seated-ok", "step-free", "near-home", "quiet"]
       }
     ],
     "tags": ["quick"],
@@ -23,7 +23,7 @@
     "alternatives": [
       {
         "text": "Find something blue you can see from a window or doorway.",
-        "tags": ["seated-ok", "step-free"]
+        "tags": ["seated-ok", "step-free", "near-home"]
       }
     ],
     "tags": ["quick", "nature"],
@@ -38,7 +38,7 @@
     "alternatives": [
       {
         "text": "Eat by an open window or on a balcony.",
-        "tags": ["seated-ok", "step-free"]
+        "tags": ["seated-ok", "step-free", "near-home", "quiet"]
       }
     ],
     "tags": ["quick"],
@@ -53,7 +53,7 @@
     "alternatives": [
       {
         "text": "Spot birds from a window and photograph one.",
-        "tags": ["seated-ok", "step-free"]
+        "tags": ["seated-ok", "step-free", "near-home", "quiet"]
       }
     ],
     "tags": ["nature", "quiet"],
@@ -83,7 +83,7 @@
     "alternatives": [
       {
         "text": "Tidy up litter on your street or building entrance.",
-        "tags": ["step-free"]
+        "tags": ["step-free", "near-home"]
       }
     ],
     "tags": ["cleanup"],
@@ -113,7 +113,7 @@
     "alternatives": [
       {
         "text": "Visit a park pond or fountain with a friend.",
-        "tags": ["step-free", "group"]
+        "tags": ["step-free", "group", "no-water"]
       }
     ],
     "tags": ["water", "group"],
@@ -128,7 +128,7 @@
     "alternatives": [
       {
         "text": "Spend 20 minutes tidying a shared outdoor space near you.",
-        "tags": ["step-free"]
+        "tags": ["step-free", "near-home"]
       }
     ],
     "tags": ["cleanup"],
@@ -143,7 +143,7 @@
     "alternatives": [
       {
         "text": "Watch the sunrise from a window or balcony.",
-        "tags": ["seated-ok", "step-free"]
+        "tags": ["seated-ok", "step-free", "near-home", "no-water", "quiet"]
       }
     ],
     "tags": ["water", "quiet"],

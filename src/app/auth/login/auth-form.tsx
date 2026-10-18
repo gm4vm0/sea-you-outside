@@ -45,7 +45,8 @@ export default function AuthForm() {
       if (error) return setError(error.message);
     }
 
-    router.push("/");
+    // New players pick their access needs first; returning players go to their sea.
+    router.push(isSignUp ? "/settings?welcome=1" : "/");
     router.refresh();
   }
 
