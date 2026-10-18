@@ -35,11 +35,11 @@
 }
 
 /* Respect people who turn off motion in their device settings */
-/* @media (prefers-reduced-motion: reduce) {
+@media (prefers-reduced-motion: reduce) {
   .fish {
     animation: none;
   }
-} */
+}
 
 body {
   background: var(--background);

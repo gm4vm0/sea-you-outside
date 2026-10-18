@@ -1,4 +1,5 @@
 import * as z from "zod";
+import { ACCESS_TAGS } from "../access";
 
 export const DEPTHS = ["shallows", "reef", "twilight", "abyss"] as const;
 export type Depth = (typeof DEPTHS)[number];
@@ -24,7 +25,7 @@ export const DareSchema = z.object({
     .array(
       z.object({
         text: z.string(),
-        tags: z.array(z.string()),
+        tags: z.array(z.enum(ACCESS_TAGS)),
       }),
     )
     .min(1),

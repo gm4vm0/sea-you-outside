@@ -27,12 +27,24 @@ function calculateTop(depth: Depth, id: string): string {
 
 export default async function SeaPage() {
   const ownedFish = await getOwnedFish();
+  const summary =
+    ownedFish.length === 0
+      ? "Your sea is empty. Complete dares and buy fish in the shop!"
+      : `Your sea with ${ownedFish.length} fish: ${ownedFish.map((f) => f.name).join(", ")}`;
 
   return (
     <main>
-      <div className="relative h-[95vh] overflow-hidden bg-linear-to-b from-sky-100 to-blue-900">
+      <h1 className="sr-only">Your sea</h1>
+      <div
+        role="img"
+        aria-label={summary}
+        className="relative h-[95vh] overflow-hidden bg-linear-to-b from-sky-100 to-blue-900"
+      >
         {ownedFish.length === 0 && (
-          <p className="absolute inset-x-0 top-1/3 text-center text-lg text-sky-900">
+          <p
+            aria-hidden="true"
+            className="absolute inset-x-0 top-1/3 text-center text-lg text-sky-900"
+          >
             Your sea is empty. Complete dares and buy fish in the shop!
           </p>
         )}
@@ -44,8 +56,7 @@ export default async function SeaPage() {
             <span
               key={f.ownedId}
               className="fish absolute select-none text-2xl"
-              role="img"
-              aria-label={f.name}
+              aria-hidden="true" // the container's label lists every fish
               style={{
                 top: topPosition,
                 animationDuration: `${14 + (i % 4) * 3}s`,

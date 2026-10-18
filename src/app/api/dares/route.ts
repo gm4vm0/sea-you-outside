@@ -1,3 +1,4 @@
+import { parsePreferences } from "@/lib/access";
 import { generateDares } from "@/lib/dares/generate";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -35,6 +36,14 @@ export async function POST(request: NextRequest) {
   if (!userId)
     return Response.json({ error: "Not signed in" }, { status: 401 });
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("area, preferences")
+    .eq("id", userId)
+    .single();
+  // Sent with the dares so the cards can highlight alternatives that fit.
+  const { needs } = parsePreferences(profile?.preferences);
+
   const weekStart = getWeekStart();
   const regenerate = request.nextUrl.searchParams.get("regenerate") === "1";
 
@@ -54,16 +63,11 @@ export async function POST(request: NextRequest) {
     if (existing && existing.length > 0) {
       return Response.json({
         dares: await withStatus(supabase, existing),
+        needs,
         source: "saved",
       });
     }
   }
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("area, preferences")
-    .eq("id", userId)
-    .single();
 
   // Save to Supabase.
   const { dares, source } = await generateDares(profile ?? {});
@@ -82,6 +86,7 @@ export async function POST(request: NextRequest) {
   // Freshly generated dares can't have submissions yet.
   return Response.json({
     dares: inserted.map((d) => ({ ...d, completed: false })),
+    needs,
     source,
   });
 }

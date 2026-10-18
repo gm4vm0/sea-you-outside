@@ -3,10 +3,12 @@ import { resizeImage } from "@/lib/utils";
 
 export default function ProofUpload({
   dareId,
+  dareTitle,
   completed,
   onComplete,
 }: {
   dareId: string;
+  dareTitle: string;
   completed: boolean;
   onComplete: () => void;
 }) {
@@ -53,20 +55,28 @@ export default function ProofUpload({
   return (
     <div>
       {!completed && (
-        <label className="flex flex-col gap-1">
-          <span className="px-3 py-2 bg-blue-300 hover:bg-sky-800 italic rounded-lg">
-            Submit photo
-          </span>
+        // sr-only (not display:none) keeps the input reachable by keyboard
+        <label
+          className={`flex min-h-11 items-center justify-center rounded-lg px-3 py-2 font-semibold focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-sky-700 ${
+            busy
+              ? "cursor-wait bg-slate-200 text-slate-700"
+              : "cursor-pointer bg-sky-700 text-white hover:bg-sky-800"
+          }`}
+        >
+          {busy ? "Checking..." : "Submit photo"}
           <input
-            className="hidden"
+            className="sr-only"
             type="file"
             accept="image/*"
+            aria-label={`Submit photo for ${dareTitle}`}
             onChange={handleChange}
             disabled={busy}
           />
         </label>
       )}
-      {status && <p role="status">{status}</p>}
+      <p role="status" className="mt-1 empty:hidden">
+        {status}
+      </p>
     </div>
   );
 }

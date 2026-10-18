@@ -1,6 +1,5 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import SignOutButton from "@/components/sign-out-button";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -8,19 +7,18 @@ export default async function Home() {
   // Who is signed in?
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
-  if (!user) redirect("/login");
+  if (!user) redirect("/auth/login");
 
-  // Look up their profile row (created at sign-up by the database trigger)
+  // Profile row is created at sign-up by the database trigger.
+  // A new player hasn't answered yet: ask what works for them first.
   const { data: profile } = await supabase
     .from("profiles")
-    .select("display_name")
+    .select("preferences")
     .eq("id", user.sub)
     .single();
 
-  return (
-    <main>
-      <h1>Hello, {profile?.display_name ?? user.email}</h1>
-      <SignOutButton />
-    </main>
-  );
+  // Saving or skipping always stores a "needs" key, even if the column defaults to {}.
+  const prefs = profile?.preferences;
+  const answered = prefs && typeof prefs === "object" && "needs" in prefs;
+  redirect(answered ? "/dares" : "/settings?welcome=1");
 }
