@@ -81,13 +81,13 @@ export default function DareList() {
         const groupDone = group.filter((d) => d.completed).length;
 
         return (
-          <div
-            className="m-4 p-3 border-2 rounded-2xl border-sky-500"
-            key={depth}
-          >
-            <p className="font-bold text-2xl">
-              {label} · {groupDone}/{group.length} done
-            </p>
+          <div className="m-4 rounded-2xl bg-sky-50 p-3" key={depth}>
+            <div className="flex items-baseline justify-between gap-2">
+              <p className="font-bold text-2xl">{label}</p>
+              <p className="shrink-0 text-sm font-semibold text-sky-700">
+                {groupDone}/{group.length} done
+              </p>
+            </div>
             {group.map((dare: Dare) => (
               <DareCard
                 key={dare.id}

@@ -11,18 +11,22 @@ export default function DareCard({
   const completed = !!dare.completed;
   return (
     <article
-      className={`border border-solid mt-3 gap-1 flex flex-col ${
-        completed ? "border-green-500 opacity-60" : "border-[#ccc]"
+      className={`mt-3 flex flex-col gap-2 rounded-xl p-4 shadow-sm ring-1 ${
+        completed ? "bg-green-50 ring-green-300" : "bg-white ring-slate-200"
       }`}
     >
-      <h2 className="font-bold text-xl text-sky-700 flex items-center gap-2">
-        {dare.title}
+      <div className="flex items-start justify-between gap-2">
+        <h2
+          className={`font-bold text-xl ${completed ? "text-green-800" : "text-sky-700"}`}
+        >
+          {dare.title}
+        </h2>
         {completed && (
-          <span className="text-sm font-semibold text-green-700 bg-green-100 rounded-full px-2 py-0.5">
-            ✓ Completed
+          <span className="shrink-0 whitespace-nowrap rounded-full bg-green-600 px-2 py-0.5 text-sm font-semibold text-white">
+            ✓ Done
           </span>
         )}
-      </h2>
+      </div>
       <p>{dare.instructions}</p>
       {dare.alternatives.length > 0 && (
         <>
