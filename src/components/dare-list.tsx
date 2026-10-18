@@ -44,15 +44,40 @@ export default function DareList() {
     fetchDares(true).then(apply);
   }
 
+  const DEPTH_CONFIG = [
+    { depth: "shallows", label: "Shallows - 10 points" },
+    { depth: "reef", label: "Reef - 25 points" },
+    { depth: "twilight", label: "Twilight - 50 points" },
+    { depth: "abyss", label: "Abyss - 100 points" },
+  ];
+
+  const groupedDares = dares.reduce<Partial<Record<string, Dare[]>>>(
+    (acc, dare) => {
+      (acc[dare.depth] ??= []).push(dare);
+      return acc;
+    },
+    {},
+  );
+
   return (
     <section>
-      {/*<button type="button" onClick={regenerate} disabled={loading}>
-        Regenerate
-      </button>*/}
       {status && <p role="status">{status}</p>}
-      {dares.map((dare) => (
-        <DareCard key={dare.id} dare={dare} />
-      ))}
+
+      {DEPTH_CONFIG.map(({ depth, label }) => {
+        const group = groupedDares[depth] || [];
+        if (group.length === 0) return null; // Optional: hide empty tiers
+
+        return (
+          <div key={depth}>
+            <p>
+              <strong>{label}</strong>
+            </p>
+            {group.map((dare: Dare) => (
+              <DareCard key={dare.id} dare={dare} />
+            ))}
+          </div>
+        );
+      })}
     </section>
   );
 }

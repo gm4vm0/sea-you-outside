@@ -4,11 +4,6 @@ import type { Dare } from "@/lib/types";
 export default function DareCard({ dare }: { dare: Dare }) {
   return (
     <article className="border-[#ccc] border-1px border-solid p-4 mb-4 ">
-      <p>
-        <strong>
-          {dare.depth.toUpperCase()} · {dare.points} points
-        </strong>
-      </p>
       <h2>{dare.title}</h2>
       <p>{dare.instructions}</p>
       {dare.alternatives.length > 0 && (
