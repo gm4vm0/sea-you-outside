@@ -58,7 +58,6 @@ export default function DareList() {
     },
     {},
   );
-
   return (
     <section>
       {status && <p role="status">{status}</p>}
@@ -69,9 +68,7 @@ export default function DareList() {
 
         return (
           <div key={depth}>
-            <p>
-              <strong>{label}</strong>
-            </p>
+            <p className=" px-4 font-bold">{label}</p>
             {group.map((dare: Dare) => (
               <DareCard key={dare.id} dare={dare} />
             ))}
