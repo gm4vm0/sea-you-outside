@@ -48,15 +48,12 @@ export default function ProofUpload({ dareId }: { dareId: string }) {
   return (
     <div>
       {!done && (
-        <label className="flex flex-col gap-1 text-sky-600 italic">
-          Submit photo
+        <label className="flex flex-col gap-1">
+          <span className="px-3 py-2 bg-blue-300 hover:bg-sky-800 italic rounded-lg">
+            Submit photo
+          </span>
           <input
-            className="block w-full text-sm text-slate-400
-    file:mr-4 file:py-2 file:px-4
-    file:rounded-full file:border-0
-    file:text-sm file:font-semibold
-    file:bg-sky-50 file:text-sky-700
-    focus:outline-none"
+            className="hidden"
             type="file"
             accept="image/*"
             onChange={handleChange}

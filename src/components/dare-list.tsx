@@ -67,8 +67,11 @@ export default function DareList() {
         if (group.length === 0) return null; // Optional: hide empty tiers
 
         return (
-          <div key={depth}>
-            <p className=" px-4 font-bold">{label}</p>
+          <div
+            className="m-4 p-3 border-2 rounded-2xl border-sky-500"
+            key={depth}
+          >
+            <p className="font-bold text-2xl">{label}</p>
             {group.map((dare: Dare) => (
               <DareCard key={dare.id} dare={dare} />
             ))}
