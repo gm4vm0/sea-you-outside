@@ -1,11 +1,11 @@
-import { useEffect, useId, useRef } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { Fish } from "@/lib/types";
 
 interface FishModalProps {
   fish: Fish | null;
   userPoints: number;
   onClose: () => void;
-  onBuy: (fish: Fish) => void;
+  onBuy: (fish: Fish) => Promise<string | null>;
 }
 
 export const FishModal: React.FC<FishModalProps> = ({
@@ -16,6 +16,13 @@ export const FishModal: React.FC<FishModalProps> = ({
 }) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  });
 
   useEffect(() => {
     if (!fish) return;
@@ -48,7 +55,7 @@ export const FishModal: React.FC<FishModalProps> = ({
       if (event.key === "Escape") {
         event.preventDefault();
         event.stopPropagation();
-        onClose();
+        onCloseRef.current();
         return;
       }
 
@@ -97,9 +104,13 @@ export const FishModal: React.FC<FishModalProps> = ({
 
   const canAfford = userPoints >= fish.price;
 
-  const handleBuy = () => {
-    if (!canAfford) return;
-    onBuy(fish);
+  const handleBuy = async () => {
+    if (!canAfford || busy) return;
+    setBusy(true);
+    setError("");
+    const message = await onBuy(fish);
+    setBusy(false);
+    if (message) return setError(message);
     onClose();
   };
 
@@ -180,14 +191,20 @@ export const FishModal: React.FC<FishModalProps> = ({
             <button
               type="button"
               onClick={handleBuy}
-              className="w-full rounded-xl bg-sky-600 px-4 py-3 font-semibold text-white transition hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+              disabled={busy}
+              className="w-full disabled:opacity-60 rounded-xl bg-sky-600 px-4 py-3 font-semibold text-white transition hover:bg-sky-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
             >
-              Buy ({fish.price} pts)
+              {busy ? "Buying..." : `Buy (${fish.price} pts)`}
             </button>
           ) : (
             <div className="w-full rounded-xl border border-dashed border-rose-200 bg-rose-50 p-3 text-center text-sm font-medium text-rose-600">
               Not enough points ({userPoints}/{fish.price})
             </div>
+          )}
+          {error && (
+            <p role="alert" className="text-center text-sm text-rose-600">
+              {error}
+            </p>
           )}
         </div>
       </div>

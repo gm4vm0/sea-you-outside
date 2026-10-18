@@ -1,14 +1,10 @@
-import fish from "@/data/fish.json";
-import type { Fish } from "@/lib/types";
+import { getOwnedFish } from "@/lib/fish/catalog";
+import type { Depth } from "@/lib/types";
 
-const ownedFish = (fish as Fish[]).slice(0, 7); // fake: first 4 fish
-
-type DepthZone = "shallows" | "twilight" | "midnight" | "abyss";
-
-const DEPTH_RANGES: Record<DepthZone, { min: number; max: number }> = {
+const DEPTH_RANGES: Record<Depth, { min: number; max: number }> = {
   shallows: { min: 5, max: 40 },
-  twilight: { min: 43, max: 60 },
-  midnight: { min: 63, max: 79 },
+  reef: { min: 43, max: 60 },
+  twilight: { min: 63, max: 79 },
   abyss: { min: 83, max: 92 },
 };
 
@@ -22,23 +18,31 @@ function getStableOffset(id: string, seed: number = 0): number {
   return Math.abs(hash % 1000) / 1000;
 }
 
-function calculateTop(depth: DepthZone, id: string): string {
+function calculateTop(depth: Depth, id: string): string {
   const range = DEPTH_RANGES[depth] ?? DEPTH_RANGES.shallows;
   const ratio = getStableOffset(id, 727); // consistent 0 to 1 float
   const topPercent = range.min + ratio * (range.max - range.min);
   return `${topPercent.toFixed(1)}%`;
 }
 
-export default function SeaPage() {
+export default async function SeaPage() {
+  const ownedFish = await getOwnedFish();
+
   return (
     <main>
       <div className="relative h-[95vh] overflow-hidden bg-linear-to-b from-sky-100 to-blue-900">
+        {ownedFish.length === 0 && (
+          <p className="absolute inset-x-0 top-1/3 text-center text-lg text-sky-900">
+            Your sea is empty. Complete dares and buy fish in the shop!
+          </p>
+        )}
         {ownedFish.map((f, i) => {
-          const topPosition = calculateTop(f.depth as DepthZone, f.id);
+          // Use the owned id so two of the same fish swim at different depths.
+          const topPosition = calculateTop(f.depth, f.ownedId);
 
           return (
             <span
-              key={f.id}
+              key={f.ownedId}
               className="fish absolute select-none text-2xl"
               role="img"
               aria-label={f.name}
