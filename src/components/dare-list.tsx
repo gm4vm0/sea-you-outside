@@ -38,6 +38,12 @@ export default function DareList() {
     fetchDares().then(apply);
   }, []);
 
+  function markCompleted(id: string) {
+    setDares((prev) =>
+      prev.map((d) => (d.id === id ? { ...d, completed: true } : d)),
+    );
+  }
+
   function regenerate() {
     setLoading(true);
     setStatus("Generating new dares...");
@@ -58,22 +64,36 @@ export default function DareList() {
     },
     {},
   );
+  const completedCount = dares.filter((d) => d.completed).length;
+
   return (
     <section>
       {status && <p role="status">{status}</p>}
+      {dares.length > 0 && (
+        <p className="m-4 font-semibold">
+          {completedCount}/{dares.length} dares completed
+        </p>
+      )}
 
       {DEPTH_CONFIG.map(({ depth, label }) => {
         const group = groupedDares[depth] || [];
         if (group.length === 0) return null; // Optional: hide empty tiers
+        const groupDone = group.filter((d) => d.completed).length;
 
         return (
-          <div
-            className="m-4 p-3 border-2 rounded-2xl border-sky-500"
-            key={depth}
-          >
-            <p className="font-bold text-2xl">{label}</p>
+          <div className="m-4 rounded-2xl bg-sky-50 p-3" key={depth}>
+            <div className="flex items-baseline justify-between gap-2">
+              <p className="font-bold text-2xl">{label}</p>
+              <p className="shrink-0 text-sm font-semibold text-sky-700">
+                {groupDone}/{group.length} done
+              </p>
+            </div>
             {group.map((dare: Dare) => (
-              <DareCard key={dare.id} dare={dare} />
+              <DareCard
+                key={dare.id}
+                dare={dare}
+                onComplete={() => markCompleted(dare.id)}
+              />
             ))}
           </div>
         );

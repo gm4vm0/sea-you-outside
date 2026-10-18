@@ -1,12 +1,17 @@
-"use client";
-
 import { useState } from "react";
 import { resizeImage } from "@/lib/utils";
 
-export default function ProofUpload({ dareId }: { dareId: string }) {
+export default function ProofUpload({
+  dareId,
+  completed,
+  onComplete,
+}: {
+  dareId: string;
+  completed: boolean;
+  onComplete: () => void;
+}) {
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
-  const [done, setDone] = useState(false);
 
   async function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const input = e.target;
@@ -24,13 +29,13 @@ export default function ProofUpload({ dareId }: { dareId: string }) {
       const text = await res.text();
       const body = text ? JSON.parse(text) : {};
       if (!res.ok) {
-        if (res.status === 409) setDone(true);
+        if (res.status === 409) onComplete();
         return setStatus(
           body.error ?? "Something went wrong, please try again",
         );
       }
       if (body.status === "approved") {
-        setDone(true);
+        onComplete();
         setStatus(
           `Approved! +${body.pointsAwarded} points (balance: ${body.balance})`,
         );
@@ -47,7 +52,7 @@ export default function ProofUpload({ dareId }: { dareId: string }) {
 
   return (
     <div>
-      {!done && (
+      {!completed && (
         <label className="flex flex-col gap-1">
           <span className="px-3 py-2 bg-blue-300 hover:bg-sky-800 italic rounded-lg">
             Submit photo
