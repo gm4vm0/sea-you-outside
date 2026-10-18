@@ -5,16 +5,10 @@ export default function Nav() {
     <nav className="sticky bottom-0 bg-white border-t-2 h-[5vh]">
       <ul className="flex justify-between">
         <li>
-          <Link href="/">Home</Link>
+          <Link href="/dares">Dares</Link>
         </li>
         <li>
           <Link href="/sea">Sea</Link>
-        </li>
-        <li>
-          <Link href="upload">Upload</Link>
-        </li>
-        <li>
-          <Link href="/dares">Dares</Link>
         </li>
         <li>
           <Link href="/shop">Shop</Link>
