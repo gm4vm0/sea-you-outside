@@ -11,6 +11,23 @@ function getWeekStart() {
   return d.toISOString().slice(0, 10);
 }
 
+// Mark each dare with whether the user has an approved submission for it.
+async function withStatus<T extends { id: string }>(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  dares: T[],
+) {
+  const { data } = await supabase
+    .from("submissions")
+    .select("dare_id")
+    .in(
+      "dare_id",
+      dares.map((d) => d.id),
+    )
+    .eq("status", "approved");
+  const done = new Set((data ?? []).map((s) => s.dare_id));
+  return dares.map((d) => ({ ...d, completed: done.has(d.id) }));
+}
+
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
   const { data: auth } = await supabase.auth.getClaims();
@@ -35,7 +52,10 @@ export async function POST(request: NextRequest) {
       .eq("week_start", weekStart)
       .order("points");
     if (existing && existing.length > 0) {
-      return Response.json({ dares: existing, source: "saved" });
+      return Response.json({
+        dares: await withStatus(supabase, existing),
+        source: "saved",
+      });
     }
   }
 
@@ -59,5 +79,9 @@ export async function POST(request: NextRequest) {
   if (error) return Response.json({ error: error.message }, { status: 500 });
 
   inserted.sort((a, b) => a.points - b.points);
-  return Response.json({ dares: inserted, source });
+  // Freshly generated dares can't have submissions yet.
+  return Response.json({
+    dares: inserted.map((d) => ({ ...d, completed: false })),
+    source,
+  });
 }

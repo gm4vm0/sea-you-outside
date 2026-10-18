@@ -19,4 +19,5 @@ export type Dare = {
   alternatives: { text: string; tags: string[] }[];
   tags: string[];
   proof: string;
+  completed?: boolean;
 };
