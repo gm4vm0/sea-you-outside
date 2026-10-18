@@ -16,16 +16,11 @@ export async function savePreferences(
   const userId = auth?.claims?.sub;
   if (!userId) redirect("/auth/login");
 
-  const skip = formData.get("skip") === "1";
   const welcome = formData.get("welcome") === "1";
-
-  // Skipping saves "no needs" so the welcome step doesn't come back.
-  const update = skip
-    ? { preferences: { needs: [] } }
-    : {
-        preferences: parsePreferences({ needs: formData.getAll("needs") }),
-        area: String(formData.get("area") ?? "").trim() || null,
-      };
+  const update = {
+    preferences: parsePreferences({ needs: formData.getAll("needs") }),
+    area: String(formData.get("area") ?? "").trim() || null,
+  };
 
   const { data, error } = await supabase
     .from("profiles")

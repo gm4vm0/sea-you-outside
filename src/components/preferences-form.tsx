@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState } from "react";
 import { savePreferences, type SaveState } from "@/app/(main)/settings/actions";
 import { ACCESS_LABELS, ACCESS_TAGS, type AccessTag } from "@/lib/access";
@@ -89,15 +90,12 @@ export default function PreferencesForm({
           {pending ? "Saving..." : welcome ? "Save and see my dares" : "Save"}
         </button>
         {welcome && (
-          <button
-            type="submit"
-            name="skip"
-            value="1"
-            disabled={pending}
-            className="min-h-11 rounded-xl px-4 py-2 font-semibold text-sky-800 underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-sky-700"
+          <Link
+            href="/dares"
+            className="flex min-h-11 items-center justify-center rounded-xl px-4 py-2 font-semibold text-sky-800 underline underline-offset-2 focus-visible:outline-2 focus-visible:outline-sky-700"
           >
             Skip for now
-          </button>
+          </Link>
         )}
       </div>
     </form>

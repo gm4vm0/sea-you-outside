@@ -8,7 +8,7 @@ import { AiOutlineShop } from "react-icons/ai";
 
 const LINKS = [
   { href: "/dares", label: "Dares", Icon: BsListTask },
-  { href: "/sea", label: "Sea", Icon: IoFishOutline },
+  { href: "/", label: "Sea", Icon: IoFishOutline },
   { href: "/shop", label: "Shop", Icon: AiOutlineShop },
   { href: "/settings", label: "Me", Icon: IoPersonCircleOutline },
 ];
@@ -23,7 +23,8 @@ export default function Nav() {
     >
       <ul className="flex w-screen justify-between">
         {LINKS.map(({ href, label, Icon }) => {
-          const current = pathname.startsWith(href);
+          const current =
+            href === "/" ? pathname === "/" : pathname.startsWith(href);
           return (
             <li key={href}>
               <Link
