@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { resizeImage } from "@/lib/resize-image";
+import { resizeImage } from "@/lib/utils";
 
 export default function ProofUpload({ dareId }: { dareId: string }) {
   const [status, setStatus] = useState("");
@@ -25,7 +25,9 @@ export default function ProofUpload({ dareId }: { dareId: string }) {
       const body = text ? JSON.parse(text) : {};
       if (!res.ok) {
         if (res.status === 409) setDone(true);
-        return setStatus(body.error ?? "Something went wrong, please try again");
+        return setStatus(
+          body.error ?? "Something went wrong, please try again",
+        );
       }
       if (body.status === "approved") {
         setDone(true);
